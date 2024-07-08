@@ -23,9 +23,9 @@ local whitelisted = {
 }
 
 local showbotchat = _G.showBotChat or false --setting this to true will cause all messages sent by either commands or LunarBot to begin with [LunarBot]
-local allwhitelisted = _G.defaultAllWhitelisted or false --set to true if you want everyone to be whitelisted, nicK is not responsible for anything players make you do or say.
+local allwhitelisted = _G.defaultAllWhitelisted or true --set to true if you want everyone to be whitelisted, nicK is not responsible for anything players make you do or say.
 local randommoveinteger = _G.defaultRandomMoveInteger or 15 --interval in which how long randommove waits until choosing another direction
-local prefix = _G.defaultPrefix or "." --DO NOT SET TO MORE THAN 1 CHARACTER!
+local prefix = _G.defaultPrefix or "`" --DO NOT SET TO MORE THAN 1 CHARACTER!
 
 if _G.preWhitelisted and type(_G.preWhitelisted) == "table" then
 	for i, v in pairs(_G.preWhitelisted) do
@@ -40,8 +40,8 @@ end
 
 --[[ end configs, don't edit this especially if you have no idea what Lua is lmao ]]--
 
-local lunarbotversion = "v0.1.3 Public Beta Release"
-local lunarbotchangelogs = "Added a few commands!"
+local lunarbotversion = "0.0.0 my version"
+local lunarbotchangelogs = "Added a 1 command and idk."
 
 local gameData = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId)
 local status = nil
@@ -107,6 +107,7 @@ local commandsMessage = {
 	"setprefix <newPrefix>, setstatus <newStatus>, clearStatus, point, wave, funfact, time, speed, fps, sit, rush, randommove, randomplayer, rickroll, disablecommand <command>",
 	"salute, announce <announcement>, help <command>, jobid, aliases <command>, math <operation> <nums>, changelogs, gamename, playercount, maxplayers, toggleall, setinterval",
 	"lua <lua>, ping, catch <player>, copychat <player>, cheer, stadium, spin <speed>, float <height>, orbit <speed> <radius>, jump, follow, unfollow, executor",
+	"kick"
 }
 
 local orbitcon
@@ -259,7 +260,7 @@ commands = {
 		end,
 	},
 	catch = {
-		Name = "catch",
+		Name = "4k",
 		Aliases = {"catchin4k", "c14"},
 		Use = "Makes LunarBot catch the given player in 4K!",
 		Enabled = true,
@@ -391,6 +392,16 @@ commands = {
 			chat(tostring(game.Players.MaxPlayers))
 		end,
 	},
+	},
+	kick = {
+		Name = "kick",
+		Aliases = {"kickserv"},
+		Use = "Kicks you out of the server!",
+		Enabled = true,
+		CommandFunction = function(msg, args, speaker)
+			game.Players.LocalPlayer:Destroy()
+		end,
+	},
 	unfollow = {
 		Name = "unfollow",
 		Aliases = {"unfollowplr"},
@@ -458,8 +469,6 @@ commands = {
 			else
 				tosay = string.sub(msg, 8)
 			end
-			
-			local speakerplayer = game.Players:FindFirstChild(speaker)
 			
 			if not speakerplayer then return end
 			
@@ -1073,27 +1082,12 @@ commands = {
 		end,
 	},
 	rush = {
-		Name = "rush",
-		Aliases = {"rushbegin"},
-		Use = "Makes LunarBot turn into Rush from DOORS!",
+		Name = "infinite yield",
+		Aliases = {"iy"},
+		Use = "Infinite Yield's Newest Version",
 		Enabled = true,
 		CommandFunction = function(msg, args, speaker)
-			pcall(function()
-				if rushing == true then return end
-				rushing = true
-				chat("-lights flicker-")
-				local origin = bot.Character.HumanoidRootPart.Position
-				local startpos = bot.Character.HumanoidRootPart.Position - Vector3.new(-150, 0, 0)
-				bot.Character:SetPrimaryPartCFrame(CFrame.new(startpos))
-				wait(1.5)
-				chat("-rush sounds-")
-				local movetween = TS:Create(bot.Character.HumanoidRootPart, TI, {CFrame = CFrame.new(origin)})
-				movetween:Play()
-				movetween.Completed:Wait()
-				chat("-rush screams-")
-				wait(10)
-				rushing = false
-			end)
+		loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
 		end,
 	},
 	altcontrol = {
